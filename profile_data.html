@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Profiles</title>
+</head>
+<body>
+    <h2>Stored Profiles</h2>
+    <div id="profiles"></div>
+
+    <script>
+        fetch('https://api.github.com/repos/sarathch66/profiledata/contents/profiles.json', {
+            method: 'GET',
+            headers: {
+                'Authorization': 'token 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',
+                'Accept': 'application/vnd.github.v3+json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.content) {
+                const profiles = JSON.parse(atob(data.content));
+                const profilesDiv = document.getElementById('profiles');
+                profiles.forEach(profile => {
+                    const profileDiv = document.createElement('div');
+                    profileDiv.innerHTML = `<p>Name: ${profile.name}</p><p>Email: ${profile.email}</p><p>Age: ${profile.age}</p>`;
+                    profilesDiv.appendChild(profileDiv);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
