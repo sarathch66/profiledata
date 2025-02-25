@@ -11,7 +11,7 @@ document.getElementById('profileForm').addEventListener('submit', function(event
         age: age
     };
 
-    fetch('https://api.github.com/repos/sarathch66/profiledata/contents/profiles.json', {
+    fetch('https://api.github.com/repos/sarathch66/profiledata/profiles.json', {
         method: 'GET',
         headers: {
             'Authorization': 'token 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',
@@ -28,7 +28,7 @@ document.getElementById('profileForm').addEventListener('submit', function(event
 
         const updatedContent = btoa(JSON.stringify(profiles, null, 2));
 
-        fetch('https://api.github.com/repos/sarathch66/profiledata/contents/profiles.json', {
+        fetch('https://api.github.com/repos/sarathch66/profiledata/profiles.json', {
             method: 'PUT',
             headers: {
                 'Authorization': 'token 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',
