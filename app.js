@@ -11,7 +11,7 @@ document.getElementById('profileForm').addEventListener('submit', function(event
         age: age
     };
 
-    fetch('https://github.com/repos/sarathch66/profiledata/profiles.json', {
+    fetch('https://api.github.com/repos/sarathch66/profiledata/profiles.json', {
         method: 'GET',
         headers: {
             'Authorization': 'token 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',
@@ -21,14 +21,16 @@ document.getElementById('profileForm').addEventListener('submit', function(event
     .then(response => response.json())
     .then(data => {
         let profiles = [];
+        let sha = '';
         if (data.content) {
             profiles = JSON.parse(atob(data.content));
+            sha = data.sha;
         }
         profiles.push(profile);
 
         const updatedContent = btoa(JSON.stringify(profiles, null, 2));
 
-        fetch('https://github.com/repos/sarathch66/profiledata/profiles.json', {
+        fetch('https://api.github.com/repos/sarathch66/profiledata/profiles.json', {
             method: 'PUT',
             headers: {
                 'Authorization': 'token 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',
@@ -37,7 +39,7 @@ document.getElementById('profileForm').addEventListener('submit', function(event
             body: JSON.stringify({
                 message: 'Add new profile',
                 content: updatedContent,
-                sha: data.sha
+                sha: sha
             })
         })
         .then(response => response.json())
